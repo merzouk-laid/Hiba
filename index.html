@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ورشة أناقة - خياطة نسائية</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --primary: #c9a96e;
+            --primary-dark: #a88b55;
+            --dark: #2c1810;
+            --light: #fdf8f3;
+            --accent: #d4a5a5;
+            --text: #4a4a4a;
+        }
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background: var(--light);
+            color: var(--text);
+            line-height: 1.7;
+        }
+        
+        /* Header */
+        header {
+            background: linear-gradient(135deg, var(--dark) 0%, #4a2c1a 100%);
+            color: white;
+            padding: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.15);
+        }
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--primary);
+        }
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+            list-style: none;
+        }
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            cursor: pointer;
+        }
+        .nav-links a:hover { color: var(--primary); }
+        .cart-icon {
+            position: relative;
+            cursor: pointer;
+            font-size: 1.3rem;
+        }
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: var(--primary);
+            color: var(--dark);
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+        
+        /* Hero */
+        .hero {
+            background: linear-gradient(135deg, var(--dark) 0%, #5a3a2a 50%, var(--dark) 100%);
+            color: white;
+            text-align: center;
+            padding: 4rem 1rem;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero::before {
+            content: '✂';
+            position: absolute;
+            font-size: 15rem;
+            opacity: 0.05;
+            top: -2rem;
+            left: -2rem;
+        }
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            font-weight: 800;
+        }
+        .hero p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto 2rem;
+        }
+        .btn {
+            display: inline-block;
+            padding: 0.9rem 2.5rem;
+            background: var(--primary);
+            color: var(--dark);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 700;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            font-family: 'Tajawal', sans-serif;
+            font-size: 1rem;
+        }
+        .btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(201,169,110,0.4);
+        }
+        
+        /* Sections */
+        .section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 1rem;
+        }
+        .section-title {
+            text-align: center;
+            font-size: 2rem;
+            color: var(--dark);
+            margin-bottom: 2rem;
+            position: relative;
+        }
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 3px;
+            background: var(--primary);
+            margin: 0.5rem auto;
+            border-radius: 2px;
+        }
+        
+        /* Products Grid */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+        .product-card {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.12);
+        }
+        .product-img {
+            height: 220px;
+            background: linear-gradient(135deg, #f5e6d3, #e8d5c0);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+        }
+        .product-info { padding: 1.5rem; }
+        .product-name {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 0.5rem;
+        }
+        .product-desc {
+            color: #888;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+        .product-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .price {
+            font-size: 1.3rem;
+            font-weight: 800;
+            color: var(--primary-dark);
+        }
+        .add-to-cart {
+            background: var(--dark);
+            color: white;
+            border: none;
+            padding: 0.6rem 1.2rem;
+            border-radius: 25px;
+            cursor: pointer;
+            font-family: 'Tajawal', sans-serif;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        .add-to-cart:hover { background: var(--primary); color: var(--dark); }
+        
+        /* Blog Grid */
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        .blog-card {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+        .blog-img {
+            height: 180px;
+            background: linear-gradient(135deg, var(--accent), #e8c4c4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+        }
+        .blog-content { padding: 1.5rem; }
+        .blog-date {
+            color: var(--primary-dark);
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        .blog-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 0.5rem;
+        }
+        .blog-excerpt {
+            color: #888;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+        .read-more {
+            color: var(--primary-dark);
+            text-decoration: none;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        
+        /* Cart Modal */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            padding: 1rem;
+        }
+        .modal-overlay.active { display: flex; }
+        .modal {
+            background: white;
+            border-radius: 20px;
+            width: 100%;
+            max-width: 500px;
+            max-height: 80vh;
+            overflow-y: auto;
+            padding: 2rem;
+        }
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+        .modal-header h2 { color: var(--dark); }
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #999;
+        }
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+            border-bottom: 1px solid #eee;
+        }
+        .cart-total {
+            text-align: center;
+            margin-top: 1.5rem;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--dark);
+        }
+        .checkout-btn {
+            width: 100%;
+            margin-top: 1rem;
+        }
+        .empty-cart {
+            text-align: center;
+            color: #999;
+            padding: 2rem;
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            text-align: center;
+            padding: 2rem 1rem;
+            margin-top: 3rem;
+        }
+        .social-links {
+            margin-top: 1rem;
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+        .social-links a {
+            color: var(--primary);
+            text-decoration: none;
+            font-size: 1.2rem;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 1.8rem; }
+            .nav-links { gap: 0.8rem; font-size: 0.9rem; }
+            .section { padding: 2rem 0.5rem; }
+        }
+        
+        .hidden { display: none !important; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <nav>
+            <div class="logo">✂ ورشة أناقة</div>
+            <ul class="nav-links">
+                <li><a onclick="showSection('home')">الرئيسية</a></li>
+                <li><a onclick="showSection('store')">المتجر</a></li>
+                <li><a onclick="showSection('blog')">المدونة</a></li>
+            </ul>
+            <div class="cart-icon" onclick="toggleCart()">
+                🛒
+                <span class="cart-count" id="cartCount">0</span>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero" id="homeSection">
+        <h1>خياطة بأناقة... وذوق رفيع</h1>
+        <p>نصمم لكِ الأناقة بأيدٍ سعودية، فساتين، عبايات، وإكسسوارات خياطة بجودة عالية</p>
+        <a class="btn" onclick="showSection('store')">تصفحي المنتجات</a>
+    </section>
+
+    <!-- Store Section -->
+    <section class="section" id="storeSection">
+        <h2 class="section-title">منتجاتنا</h2>
+        <div class="products-grid" id="productsGrid"></div>
+    </section>
+
+    <!-- Blog Section -->
+    <section class="section hidden" id="blogSection">
+        <h2 class="section-title">مدونة الورشة</h2>
+        <div class="blog-grid" id="blogGrid"></div>
+    </section>
+
+    <!-- Cart Modal -->
+    <div class="modal-overlay" id="cartModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h2>🛒 سلة التسوق</h2>
+                <button class="close-btn" onclick="toggleCart()">×</button>
+            </div>
+            <div id="cartItems"></div>
+            <div class="cart-total" id="cartTotal"></div>
+            <button class="btn checkout-btn" onclick="checkout()">إتمام الطلب عبر واتساب</button>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2026 ورشة أناقة - جميع الحقوق محفوظة</p>
+        <p style="margin-top:0.5rem; opacity:0.7;">📍 الرياض، السعودية | 📞 0500000000</p>
+        <div class="social-links">
+            <a href="#">انستقرام</a>
+            <a href="#">تويتر</a>
+            <a href="#">سناب شات</a>
+        </div>
+    </footer>
+
+    <script>
+        // Products Data
+        const products = [
+            { id: 1, name: 'عباية كلاسيكية سوداء', desc: 'عباية أنيقة من القماش الفاخر، مناسبة للمناسبات', price: 350, icon: '🧕' },
+            { id: 2, name: 'فستان سهرة مطرز', desc: 'تطريز يدوي فاخر، قصة ملكية أنيقة', price: 899, icon: '👗' },
+            { id: 3, name: 'شال حريري', desc: 'شال ناعم من الحرير الطبيعي، ألوان متعددة', price: 120, icon: '🧣' },
+            { id: 4, name: 'طقم تطريز يدوي', desc: 'إبر، خيوط، وأقمشة للمبتدئات', price: 75, icon: '🪡' },
+            { id: 5, name: 'عباية كاجوال ملونة', desc: 'تصميم عصري بلمسات ملونة أنيقة', price: 280, icon: '👘' },
+            { id: 6, name: 'حقيبة خياطة', desc: 'حقيبة أنيقة لحفظ أدوات الخياطة', price: 150, icon: '👜' }
+        ];
+
+        // Blog Data
+        const blogs = [
+            { id: 1, title: 'كيف تختارين القماش المناسب لفستانك؟', date: '25 أغسطس 2026', excerpt: 'نصائح ذهبية لاختيار نوع القماش حسب المناسبة والموسم...', icon: '📐' },
+            { id: 2, title: 'أحدث صيحات الموضة للعبايات 2026', date: '20 أغسطس 2026', excerpt: 'تعرفي على أبرز التصاميم والألوان الرائجة هذا الموسم...', icon: '✨' },
+            { id: 3, title: 'دليلكِ لتعلم الخياطة من الصفر', date: '15 أغسطس 2026', excerpt: 'خطوات بسيطة تبدأين بها رحلتكِ في عالم الخياطة...', icon: '📖' }
+        ];
+
+        let cart = [];
+
+        function renderProducts() {
+            const grid = document.getElementById('productsGrid');
+            grid.innerHTML = products.map(p => `
+                <div class="product-card">
+                    <div class="product-img">${p.icon}</div>
+                    <div class="product-info">
+                        <div class="product-name">${p.name}</div>
+                        <div class="product-desc">${p.desc}</div>
+                        <div class="product-footer">
+                            <span class="price">${p.price} ر.س</span>
+                            <button class="add-to-cart" onclick="addToCart(${p.id})">أضيفي للسلة</button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function renderBlog() {
+            const grid = document.getElementById('blogGrid');
+            grid.innerHTML = blogs.map(b => `
+                <div class="blog-card">
+                    <div class="blog-img">${b.icon}</div>
+                    <div class="blog-content">
+                        <div class="blog-date">${b.date}</div>
+                        <div class="blog-title">${b.title}</div>
+                        <div class="blog-excerpt">${b.excerpt}</div>
+                        <a class="read-more" onclick="alert('سيتم إضافة المقال الكامل قريباً!')">اقرأي المزيد →</a>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function showSection(section) {
+            document.getElementById('homeSection').classList.add('hidden');
+            document.getElementById('storeSection').classList.add('hidden');
+            document.getElementById('blogSection').classList.add('hidden');
+            
+            if (section === 'home') {
+                document.getElementById('homeSection').classList.remove('hidden');
+                document.getElementById('storeSection').classList.remove('hidden');
+            } else if (section === 'store') {
+                document.getElementById('storeSection').classList.remove('hidden');
+            } else if (section === 'blog') {
+                document.getElementById('blogSection').classList.remove('hidden');
+            }
+            window.scrollTo(0, 0);
+        }
+
+        function addToCart(id) {
+            const product = products.find(p => p.id === id);
+            cart.push(product);
+            updateCart();
+            alert(`✅ تم إضافة "${product.name}" للسلة`);
+        }
+
+        function updateCart() {
+            document.getElementById('cartCount').textContent = cart.length;
+            const itemsDiv = document.getElementById('cartItems');
+            const totalDiv = document.getElementById('cartTotal');
+            
+            if (cart.length === 0) {
+                itemsDiv.innerHTML = '<div class="empty-cart">السلة فارغة 🛒</div>';
+                totalDiv.textContent = '';
+                return;
+            }
+            
+            const total = cart.reduce((sum, item) => sum + item.price, 0);
+            itemsDiv.innerHTML = cart.map((item, i) => `
+                <div class="cart-item">
+                    <div>
+                        <strong>${item.name}</strong>
+                        <div style="color:#888; font-size:0.85rem">${item.price} ر.س</div>
+                    </div>
+                    <button onclick="removeFromCart(${i})" style="background:none; border:none; color:#d44; cursor:pointer; font-size:1.2rem">🗑</button>
+                </div>
+            `).join('');
+            totalDiv.textContent = `الإجمالي: ${total} ر.س`;
+        }
+
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            updateCart();
+        }
+
+        function toggleCart() {
+            document.getElementById('cartModal').classList.toggle('active');
+        }
+
+        function checkout() {
+            if (cart.length === 0) {
+                alert('السلة فارغة!');
+                return;
+            }
+            const total = cart.reduce((sum, item) => sum + item.price, 0);
+            const items = cart.map(item => `- ${item.name}: ${item.price} ر.س`).join('%0A');
+            const message = `طلب جديد من موقع ورشة أناقة:%0A%0A${items}%0A%0Aالإجمالي: ${total} ر.س`;
+            window.open(`https://wa.me/966500000000?text=${message}`, '_blank');
+        }
+
+        // Initialize
+        renderProducts();
+        renderBlog();
+    </script>
+</body>
+  </html>
