@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مقال - ورشة أناقة</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --primary: #c9a96e;
+            --primary-dark: #a88b55;
+            --dark: #2c1810;
+            --light: #fdf8f3;
+            --text: #4a4a4a;
+        }
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background: var(--light);
+            color: var(--text);
+            line-height: 1.8;
+        }
+        header {
+            background: linear-gradient(135deg, var(--dark) 0%, #4a2c1a 100%);
+            color: white;
+            padding: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .logo { font-size: 1.3rem; font-weight: 800; color: var(--primary); text-decoration: none; }
+        .back-btn {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .article-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 3rem 1.5rem;
+            background: white;
+            min-height: 80vh;
+        }
+        .article-container h1 {
+            color: var(--dark);
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            line-height: 1.4;
+        }
+        .article-container h2 {
+            color: var(--dark);
+            font-size: 1.4rem;
+            margin: 2rem 0 1rem;
+            border-right: 4px solid var(--primary);
+            padding-right: 1rem;
+        }
+        .article-container p {
+            margin-bottom: 1.2rem;
+            font-size: 1.05rem;
+        }
+        .article-container ul, .article-container ol {
+            margin: 1rem 2rem 1.5rem 0;
+        }
+        .article-container li {
+            margin-bottom: 0.5rem;
+        }
+        .article-container blockquote {
+            background: var(--light);
+            border-right: 4px solid var(--primary);
+            padding: 1rem 1.5rem;
+            margin: 1.5rem 0;
+            font-style: italic;
+            color: var(--dark);
+        }
+        .article-container img {
+            max-width: 100%;
+            border-radius: 12px;
+            margin: 1.5rem 0;
+        }
+        .loading {
+            text-align: center;
+            padding: 4rem;
+            color: #999;
+            font-size: 1.2rem;
+        }
+        .error {
+            text-align: center;
+            padding: 4rem;
+            color: #d44;
+        }
+        footer {
+            background: var(--dark);
+            color: white;
+            text-align: center;
+            padding: 2rem 1rem;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="index.html#blog" class="back-btn">← العودة للمدونة</a>
+            <a href="index.html" class="logo">✂ ورشة أناقة</a>
+        </nav>
+    </header>
+
+    <div class="article-container" id="articleContent">
+        <div class="loading">جاري تحميل المقال...</div>
+    </div>
+
+    <footer>
+        <p>© 2026 ورشة أناقة - جميع الحقوق محفوظة</p>
+    </footer>
+
+    <script>
+        async function loadPost() {
+            const params = new URLSearchParams(window.location.search);
+            const file = params.get('file');
+
+            if (!file) {
+                document.getElementById('articleContent').innerHTML = 
+                    '<div class="error">المقال غير موجود</div>';
+                return;
+            }
+
+            try {
+                const response = await fetch('posts/' + file);
+                if (!response.ok) throw new Error('Not found');
+                const markdown = await response.text();
+                document.getElementById('articleContent').innerHTML = marked.parse(markdown);
+            } catch (e) {
+                document.getElementById('articleContent').innerHTML = 
+                    '<div class="error">تعذر تحميل المقال</div>';
+            }
+        }
+        loadPost();
+    </script>
+</body>
+</html>
